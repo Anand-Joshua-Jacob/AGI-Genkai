@@ -9,23 +9,16 @@ sequence:"AC"
 
 
 ## Claude Opus 4.6
-Number of trials passed out of 5
-{'task1_1': 5, 'task1_2': 5, 'task1_3': 5, 'task1_4': 5, 'task1_5': 5}
-Runtime: 11m 56s
-
-Number of trials passed out of 5
-{'task2_1': 4, 'task2_2': 4, 'task2_3': 5, 'task2_4': 4, 'task2_5': 4}
-Runtime: 11m 21s
-
-Number of trials passed out of 5
-{'task3_1': 5, 'task3_2': 5, 'task3_3': 5, 'task3_4': 4, 'task3_5': 4}
-Runtime: 12m 23s
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 5, 'task1_2': 5, 'task1_3': 5, 'task1_4': 5, 'task1_5': 5} | Runtime: 11m 56s
+{'task2_1': 4, 'task2_2': 4, 'task2_3': 5, 'task2_4': 4, 'task2_5': 4} | Runtime: 11m 21s
+{'task3_1': 5, 'task3_2': 5, 'task3_3': 5, 'task3_4': 4, 'task3_5': 4} | Runtime: 12m 23s
 
 ### Observations: 
-task 1 is analyzed and understood correctly. The scale is always used as a reference.
-Sometimes it reasoned it out to come to the right conclusion. 
+In task 1 the model learned the conventions correctly. The scale was always used as a reference.
+Sometimes it reasoned it out to come to the right conclusion. Especially in tasks 1_5.
 <details>
-<summary>Click to see reasoning</summary>
+<summary>Click to see sample reasoning from conversation logs</summary>
 
 "reasoning": "Let me analyze each action:
 
@@ -122,63 +115,85 @@ I'll go with CA as the shortest sequence.",
 "sequence": "CA"
 </details>
 
+Sometimes makes up approximate units of movement for each image in the reasoning of task 2
+Task 3 shows that learning conventions from the "up" image and applying them to horizontal movement is harder for the LLMs (since task 3_4, 3_5 results are worse)
 
-task 2 
 
 ## Claude Sonnet 4.6
-Number of trials passed out of 5
-{'task1_1': 3, 'task1_2': 2, 'task1_3': 4, 'task1_4': 3, 'task1_5': 4}
-Runtime: 14m 34s
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 3, 'task1_2': 2, 'task1_3': 4, 'task1_4': 3, 'task1_5': 4} | Runtime: 14m 34s
+{'task2_1': 2, 'task2_2': 3, 'task2_3': 5, 'task2_4': 3, 'task2_5': 5} | Runtime: 11m 46s
+{'task3_1': 4, 'task3_2': 5, 'task3_3': 5, 'task3_4': 4, 'task3_5': 3} | Runtime: 11m 28s
 
-Number of trials passed out of 5
-{'task2_1': 2, 'task2_2': 3, 'task2_3': 5, 'task2_4': 3, 'task2_5': 5}
-Runtime: 11m 46s
-
-Number of trials passed out of 5
-{'task3_1': 4, 'task3_2': 5, 'task3_3': 5, 'task3_4': 4, 'task3_5': 3}
-Runtime: 11m 28s
+### Observations:
+Has a few near misses (like "move right and jump" instead of "jump and move right").
 
 
 ## Claude Haiku 4.5
-Number of trials passed out of 5
-{'task1_1': 0, 'task1_2': 0, 'task1_3': 0, 'task1_4': 0, 'task1_5': 0}
-Runtime: 4m 56s
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 0, 'task1_2': 0, 'task1_3': 0, 'task1_4': 0, 'task1_5': 0} | Runtime: 4m 56s
+{'task2_1': 0, 'task2_2': 0, 'task2_3': 1, 'task2_4': 0, 'task2_5': 0} | Runtime: 4m 47s
+{'task3_1': 0, 'task3_2': 0, 'task3_3': 1, 'task3_4': 0, 'task3_5': 0} | Runtime: 4m 51s
 
-Number of trials passed out of 5
-{'task2_1': 0, 'task2_2': 0, 'task2_3': 1, 'task2_4': 0, 'task2_5': 0}
-Runtime: 4m 47s
+### Observations:
+Even the 2 times it got the answer correct, the reasoning is wrong.
 
-Number of trials passed out of 5
-{'task3_1': 0, 'task3_2': 0, 'task3_3': 1, 'task3_4': 0, 'task3_5': 0}
-Runtime: 4m 51s
+## GPT 5.4
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 0, 'task1_2': 0, 'task1_3': 0, 'task1_4': 2, 'task1_5': 3} | Runtime: 3m 0s
+{'task2_1': 0, 'task2_2': 1, 'task2_3': 0, 'task2_4': 1, 'task2_5': 0} | Runtime: 3m 6s
+{'task3_1': 4, 'task3_2': 1, 'task3_3': 2, 'task3_4': 3, 'task3_5': 2} | Runtime: 2m 30s
+
+### Observations: 
+- The reasoning tokens and Runtime for the OpenAI models are smaller than Anthropic or Google and hence the results are also worse. Might perform better if it reasons more.
+- The reasoning actually looks better and cleaner as compared to Anthropic or Google. 
+- The reasoning for all the tasks look very similar, yet it performed better in task3 as compared to other tasks. It does not reason that moving to the right first would immediately hit the red block but for some reason, showing the jump image first (which is the case in task 3) might be making it to also choose to jump first(which happens to be the right answer for all the tasks)
+- The model also seems to have a tendency to start the answer sequence with "A". Since this is the right answer in task3, this might be the reason it performs better in task3 as compared to task 1 and 2.
+
+## GPT 5.4 mini
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 0, 'task1_2': 0, 'task1_3': 0, 'task1_4': 0, 'task1_5': 0} | Runtime: 2m 36s
+{'task2_1': 0, 'task2_2': 0, 'task2_3': 0, 'task2_4': 0, 'task2_5': 0} | Runtime: 1m 59s
+{'task3_1': 0, 'task3_2': 0, 'task3_3': 0, 'task3_4': 0, 'task3_5': 0} | Runtime: 2m 9s
+
+### Observations: 
+- Responses that do not give a proper sequence containing only capital english letters are rejected. That has happened for few of the responses of this model.
+- Sometimes the reasoning is way off
+
+## GPT 5.4 nano
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 0, 'task1_2': 1, 'task1_3': 1, 'task1_4': 0, 'task1_5': 0} | Runtime: 2m 20s
+{'task2_1': 0, 'task2_2': 0, 'task2_3': 0, 'task2_4': 0, 'task2_5': 1} | Runtime: 2m 9s
+{'task3_1': 0, 'task3_2': 0, 'task3_3': 1, 'task3_4': 0, 'task3_5': 0} | Runtime: 2m 14s
+
+### Observations:
+Even when the answer is correct, the reasoning is wrong.
+
+## Gemini 3.1 pro preview
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 5, 'task1_2': 5, 'task1_3': 5, 'task1_4': 5, 'task1_5': 2} | Runtime: 23m 56s
+{'task2_1': 1, 'task2_2': 5, 'task2_3': 4, 'task2_4': 3, 'task2_5': 4} | Runtime: 15m 6s
+{'task3_1': 4, 'task3_2': 4, 'task3_3': 5, 'task3_4': 4, 'task3_5': 5} | Runtime: 22m 17s
+### Observations:
+- Even though Google 3.1 pro and 3 flash have the highest runtimes, their reasoning field in the response is relatively small and clean suggesting internal reasoning before generating the reasoning field in the response. 
+- Even when the model fails, it came close to the right answer in most of the cases.
 
 
-gpt 5.4
-Number of trials passed out of 5
-{'task1_1': 0, 'task1_2': 0, 'task1_3': 0, 'task1_4': 2, 'task1_5': 3}
-Runtime: 3m 0s
+## Gemini 3 flash preview 
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 5, 'task1_2': 4, 'task1_3': 4, 'task1_4': 5, 'task1_5': 5} | Runtime: 34m 40s
+{'task2_1': 4, 'task2_2': 4, 'task2_3': 3, 'task2_4': 4, 'task2_5': 4} | Runtime: 38m 33s
+{'task3_1': 5, 'task3_2': 5, 'task3_3': 4, 'task3_4': 5, 'task3_5': 5} | Runtime: 23m 54s
 
-gpt 5.4 mini
-Number of trials passed out of 5
-{'task1_1': 0, 'task1_2': 0, 'task1_3': 0, 'task1_4': 0, 'task1_5': 0}
-Runtime: 2m 36s
+### Observations:
+- Since it usually uses the scale as a reference in it's reasoning, removing the scale reduces the accuracy.
 
-gpt 5.4 nano
-Number of trials passed out of 5
-{'task1_1': 0, 'task1_2': 1, 'task1_3': 1, 'task1_4': 0, 'task1_5': 0}
-Runtime: 2m 20s
+## Gemini 2.5 flash
+Number of trials passed out of 5 and Total runtime
+{'task1_1': 5, 'task1_2': 4, 'task1_3': 2, 'task1_4': 1, 'task1_5': 0} | Runtime: 29m 33s
+{'task2_1': 3, 'task2_2': 1, 'task2_3': 1, 'task2_4': 1, 'task2_5': 0} | Runtime: 24m 41s
+{'task3_1': 4, 'task3_2': 5, 'task3_3': 2, 'task3_4': 4, 'task3_5': 4} | Runtime: 18m 21s
 
-Gemini 3.1 pro preview
-Number of trials passed out of 5
-{'task1_1': 5, 'task1_2': 5, 'task1_3': 5, 'task1_4': 5, 'task1_5': 2}
-Runtime: 23m 56s
-
-Gemini 3 flash preview 
-Number of trials passed out of 5
-{'task1_1': 5, 'task1_2': 4, 'task1_3': 4, 'task1_4': 5, 'task1_5': 5}
-Runtime: 34m 40s
-
-Gemini 2.5 flash
-Number of trials passed out of 5
-{'task1_1': 5, 'task1_2': 4, 'task1_3': 2, 'task1_4': 1, 'task1_5': 0}
-Runtime: 29m 33s
+### Observations:
+- Few shot learning tasks are difficult for this model.
+- Performs well in task 3 with solid reasoning behind the correct answers.
