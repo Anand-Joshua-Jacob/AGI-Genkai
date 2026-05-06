@@ -9,9 +9,9 @@ sequence:"AC"
 
 
 ## Claude Opus 4.6
-Number of trials passed out of 5 and Total runtime
-{'task1_1': 5, 'task1_2': 5, 'task1_3': 5, 'task1_4': 5, 'task1_5': 5} | Runtime: 11m 56s
-{'task2_1': 4, 'task2_2': 4, 'task2_3': 5, 'task2_4': 4, 'task2_5': 4} | Runtime: 11m 21s
+Number of trials passed out of 5 and Total runtime  
+{'task1_1': 5, 'task1_2': 5, 'task1_3': 5, 'task1_4': 5, 'task1_5': 5} | Runtime: 11m 56s  
+{'task2_1': 4, 'task2_2': 4, 'task2_3': 5, 'task2_4': 4, 'task2_5': 4} | Runtime: 11m 21s  
 {'task3_1': 5, 'task3_2': 5, 'task3_3': 5, 'task3_4': 4, 'task3_5': 4} | Runtime: 12m 23s
 
 ### Observations: 
