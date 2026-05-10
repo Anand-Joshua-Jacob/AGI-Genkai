@@ -17,3 +17,4 @@ sequence:"AC"
 - Task 2 shows that removing the explicit scale in the image does diminish the model's ability to understand.
 - Task 3 shows that learning conventions from the "up" image and applying them to horizontal movement is harder for the LLMs (since task 3_4, 3_5 results are worse かな)
 
+- Maybe a better scoring would be to use an LLM to test if the reasoning behind the sequence is right or not before awarding it with a pass.
