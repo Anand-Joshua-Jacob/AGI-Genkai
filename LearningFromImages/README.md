@@ -35,21 +35,120 @@ Each image in the Datasets were drawn by me, so they should not appear in any mo
 3. [Dataset 3 – Relabelled Directions](https://www.kaggle.com/datasets/anandjoshuajacob/visual-learning-3)
 
 
-
 ---
 
-## Core Task Setup (All Datasets)
+### Core Task Setup (All Datasets)
 
 - Each dataset has 5 subtasks (e.g., `task1_1` to `task1_5`)
 - Each subtask has 4 images:
-  - **3 example images** (options A, B, C): show basic movements.
-  - **1 target image** (image 4): shared across all subtasks in a dataset.  
+  - **3 example images** (options A, B, C): show basic movements to the right, left and up.
+  - **1 target image** (image 4): same for all subtasks in all 3 datasets.  
+  - The first 3 images are presented to the LLM as **option A**, **option B**, and **option C**.
   - Target Image:  
-
+    <img src="database/task1/task1_1/4.jpg" alt="Sample Image" width="300" style="margin-left:50px;">  
+  - The **fourth image** (target) always shows:
+    - Initial stickman position on the **left**
+    - Final stickman position on the **right**
+    - A **red region** between them that must be avoided
+  - The LLM is told:
+    - To avoid red.
+    - Normal laws of physics apply.
+    - It must find the **shortest sequence of moves** (a sequence over {A, B, C}) that reproduces the motion in the target image.
   
-  <img src="database/task1/task1_1/4.jpg" alt="Sample Image" width="300" style="margin-left:50px;">
+  
+  ---
+  ### Dataset 1 – Task Jumping
+  **Link:** [Dataset 1 on Kaggle](https://www.kaggle.com/datasets/anandjoshuajacob/task-jumping)  
+  - Contains **5 subtasks**: `task1_1` to `task1_5`. Each subtask has 4 images.
+  #### Progressively Reduced Annotations
+  - **`task1_1`**:
+    - Each image shows **two stickmen**:
+      - **Gray stickman**: initial position
+      - **Black stickman**: final position
+    - images indicating movement have:
+      - **Labels** for initial and final positions.
+      - **Arrows** indicating direction of motion.
+    - Target image:
+      - Only shows gray and black stickmen (no labels, no arrows).
+    - LLM has to **learn** the gray and black stickman represents initial and final positions.
+  - **`task1_2` to `task1_4`**:
+    - The first image still has labels and arrows.
+    - Labels/arrows are **gradually removed** in images 2 and 3.
+    - The LLM has fewer explicit cues to interpret the motions.
+  - **`task1_5`**:
+    - Only the **first** image includes labels and arrows.
+    - The remaining two images and the target image:
+      - Show only gray and black stickmen.
+      - No labels or arrows.
+    - This tests how quickly and reliably the LLM can internalize the visual conventions.
+  #### Additional Visual Cues
+  - A **scale** is shown in both the **X and Y directions**.
+  - This allows the LLM to see that the stickman moves specific distances from one position to another and to compare these movements.
+  
+  #### Challenge for the LLM
+    - **Learn** what the Gray and Black stick man represent.
+    - **Infer** what each option (A, B, C) does from the images.
+    - **Infer** what the target image represents.
+    - **Reason** and come up with a minimal action sequence that matches the target.
 
-
+  #### Correct reasoning:  
+  - Moving right first leads the stickman directly into the red region. The shortest valid sequence is:
+    1. **Jump (up)** to clear the obstacle.
+    2. **Move right** and then fall due to gravity.
+  - So the correct sequence in Dataset 1 is `"CA"` (jump, then move right).
+  ---
+  ### Dataset 2 – Without Explicit Scale
+  **Link:** [Dataset 2 on Kaggle](https://www.kaggle.com/datasets/anandjoshuajacob/stickfigures-without-explicit-scale)
+  - Contains **5 subtasks**: `task2_1` to `task2_5`.
+  - Structurally the **same as Dataset 1**, but:
+    - There is **no explicit X/Y scale** in the images.
+  #### Motivation
+  In Dataset 1, many LLMs responded by reasoning in terms of exact units, e.g.,  
+  “The stick figure moved X units to the right from coordinate (a, b) to (c, d).”
+  For Dataset 2:
+  - The scale is **removed**.
+  - The LLM must:
+    - Internally form approximate representations of vertical and lateral movements.
+    - Compare these to the target image to determine which sequence recreates the target displacement.
+  - The **correct sequence** remains:
+    - Jump, then move right → `"CA"`.
+  ---
+  ### Dataset 3 – Relabelled Directions
+  **Link:** [Dataset 3 on Kaggle](https://www.kaggle.com/datasets/anandjoshuajacob/visual-learning-3)
+  - Contains **5 subtasks**: `task3_1` to `task3_5`.
+  - Same overall logic as Dataset 1, but **option meanings are permuted**.
+  #### Changed Option Mapping
+  - **Option A** → movement **up**
+  - **Option B** → movement **left**
+  - **Option C** → movement **right**
+ #### Motivation
+  - Left and right are opposites, so it is relatively easy for an LLM to relate labels and arrows between left/right images.
+  - This dataset tests whether the LLM can:
+    - Transfer what it learns from an **“up”** image (jump) to **lateral** movement images and to the target image.
+    - Correctly reinterpret the new labeling of options.
+  - The **correct sequence** is:
+    - Jump, then move right → `"AC"` in this case.
+  ---
+  ### Benchmark Construction and Scoring
+  - There are **3 Kaggle tasks**, one for each dataset.
+  - Each Kaggle task has **5 subtasks**.
+  #### Per-Dataset Scoring
+  For each dataset:
+  1. Each of the 5 subtasks is run for **5 trials**.
+  2. In each trial:
+    - If the LLM’s **final answer sequence** is correct irrespective of reasoning quality → **1 point**
+    - Otherwise → **0 points**
+  3. The **dataset score** is:
+    \[
+    \text{Score} = \frac{\text{Number of correct sequences}}{5 \text{ subtasks} \times 5 \text{ trials}} = \frac{\text{Correct}}{25}
+    \]
+  #### Overall Benchmark Score
+  - The **Kaggle benchmark score** is the **average** of the scores over the **3 Kaggle tasks** (one per dataset).
+  Formally:
+  \[
+  \text{Benchmark Score} = \frac{\text{Score}_{\text{Dataset 1}} + \text{Score}_{\text{Dataset 2}} + \text{Score}_{\text{Dataset 3}}}{3}
+  \]
+  ---
 - Each image has 2 stickmen:
   - Grey stickman: initial position.
   - Black stickman: final position.
