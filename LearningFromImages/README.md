@@ -24,6 +24,128 @@ learning process). In this benchmark we will be testing in-context learning. But
 - I want to add a benchmark in a place where AI is not able to perform well so that we can make improvements in that area moving forward.
 - In this benchmark we will be testing in-context learning of LLMs from images.
 
+# Visual Stickman Reasoning Benchmark
+
+This repository contains a set of Kaggle benchmarks for evaluating visual reasoning and convention learning in multimodal LLMs using simple stickman drawings.
+
+All images were drawn by me, so they should not appear in any model’s training data.
+
+<img src="database/task1/task1_1/4.jpg" alt="Sample Image" width="350">
+
+---
+
+## Datasets and Tasks
+
+There are 3 Kaggle datasets, each with an associated Kaggle task:
+
+1. [Dataset 1 – Task Jumping](https://www.kaggle.com/datasets/anandjoshuajacob/task-jumping)
+2. [Dataset 2 – No Explicit Scale](https://www.kaggle.com/datasets/anandjoshuajacob/stickfigures-without-explicit-scale)
+3. [Dataset 3 – Relabelled Directions](https://www.kaggle.com/datasets/anandjoshuajacob/visual-learning-3)
+
+Each dataset has 5 subtasks (e.g., `task1_1` to `task1_5`), with the same underlying logic but different visual cues and difficulty.
+
+---
+
+## Core Task Setup (All Datasets)
+
+- Each subtask has 4 images:
+  - 3 “example” images: movements to the right, left, and up.
+  - 1 “target” image: initial stickman on the left, final stickman on the right, with a red block in between.
+- Each image has 2 stickmen:
+  - Grey stickman: initial position.
+  - Black stickman: final position.
+- The model sees the 3 example images as options A, B, and C, then must choose a sequence of options that achieves the target configuration.
+- The red area is an obstacle and must be avoided; normal physics (including gravity) apply.
+- The shortest valid sequence is:
+  - Jump (up) first, then move right.
+  - The correct sequence in Dataset 1 is `"CA"` (C = up, A = right).
+
+The model must:
+1. Learn the visual conventions (grey vs black, arrows, labels).
+2. Understand what each example image represents.
+3. Infer the shortest sequence of moves for the target.
+4. Output both a reasoning field and a final answer sequence.
+
+---
+
+## Dataset 1: Task Jumping
+
+**Link:** https://www.kaggle.com/datasets/anandjoshuajacob/task-jumping  
+
+- 5 subtasks: `task1_1` to `task1_5`.
+- Example images include:
+  - Arrows showing direction of movement.
+  - Labels for initial and final positions.
+  - A reference scale on both X and Y axes.
+
+**Target image:**
+- Same across all subtasks.
+- Contains only the grey (initial) and black (final) stickmen, no labels or arrows.
+
+**Progressive removal of cues:**
+- `task1_1`: All three example images have labels and arrows; the target has none.
+- `task1_2`–`task1_4`: Labels/arrows are gradually removed from the second and third example images.
+- `task1_5`: Only the first example image has labels/arrows; the other two example images and the target image have only grey and black stickmen.
+
+This tests:
+- How quickly the model can learn and generalize the visual conventions.
+- Whether it can still reason correctly as explicit cues are reduced.
+
+**Correct answer:** `"CA"` (jump, then move right).
+
+---
+
+## Dataset 2: No Explicit Scale
+
+**Link:** https://www.kaggle.com/datasets/anandjoshuajacob/stickfigures-without-explicit-scale  
+
+- 5 subtasks: `task2_1` to `task2_5`.
+- Same setup as Dataset 1, but:
+  - No explicit X/Y scale is shown.
+
+Motivation:
+- Many models naturally reason like “the stick figure moved X units from this coordinate to that coordinate.”
+- This dataset removes explicit scales, forcing models to use internal, approximate representations of movement (up vs sideways, relative distances) and compare them visually to the target.
+
+**Correct answer:** `"CA"` (jump, then move right), same as Dataset 1.
+
+---
+
+## Dataset 3: Option Order Change
+
+**Link:** https://www.kaggle.com/datasets/anandjoshuajacob/visual-learning-3  
+
+- 5 subtasks: `task3_1` to `task3_5`.
+- Same visual structure as Dataset 1, but the option ordering changes:
+  - Option A: up
+  - Option B: left
+  - Option C: right
+
+Rationale:
+- Horizontal left/right moves are opposites and easier to relate.
+- Here, I test if the model can:
+  - Transfer understanding of labels and arrows from an “up” image to lateral movement images and the target.
+  - Correctly adapt when the option mapping changes.
+
+**Correct answer:** `"AC"` (jump, then move right, given the new option order).
+
+---
+
+## Benchmark Construction and Scoring
+
+- There are 3 Kaggle tasks (one per dataset).
+- Each Kaggle task has 5 subtasks.
+- For each subtask:
+  - The model is run for 5 trials.
+  - Each correct final answer sequence = 1 point, incorrect = 0.
+- Score per Kaggle task:
+  - Average over 25 runs (5 subtasks × 5 trials).
+- Overall benchmark score:
+  - Average of the 3 Kaggle task scores.
+
+---
+
+
 ### Dataset and Task
 The benchmark consists of 3 Kaggle tasks corresponding to 3 Kaggle datasets. All the images in the datasets are drawn by me so we can be sure that the LLMs have never seen them while training.
 
@@ -37,11 +159,12 @@ The benchmark consists of 3 Kaggle tasks corresponding to 3 Kaggle datasets. All
 - The target image (4th image) is same across all the tasks. The LLM is told to avoid the red, and that normal rules of physics apply. It is now tasked with finding the shortest sequence of moves to achieve what is shown in the target image.
 - Since the stickman will immediately hit the red block if it moves right first, the correct sequence is to jump first and then move right after which it will come down due to gravity. Hence the correct answer is "CA".
 - In task1_1 the 3 images showing movement have labels denoting initial and final position and an arrow indicating the direction of movement, but the target image just contains the gray stickman and black stickman. The LLM is tested on it's ability to learn the conventions and understand that gray stickman represents initial position and black stickman represents final position.
-- In the other tasks only the first image contains labels and arrows and these are gradually removed in images 2 and 3. The target image does not contain labels or arrows in any task. I want to test how fast the LLM can learn the conventions of the labels and arrows. In task 1_5 only the first image has labels and arrows, the 2 remaining images showing stickman movement and the final target image contain only a gray stickman and black stickman(initial and final position).
+- In the other tasks the first image contains both labels and arrows but these are gradually removed in images 2 and 3. In task 1_5 only the first image has labels and arrows, the 2 remaining images showing stickman movement and the final target image contain only a gray stickman and black stickman(initial and final position). The target image does not contain labels or arrows in any task. I want to test how fast the LLM can learn the conventions of the labels and arrows. 
 - The LLM has to **learn** these conventions and understand what each image represents and what it has to do in the final image. Then it has to come up with the correct sequence that achieves what is shown in the final image.
 - As tasks progress the LLM gets fewer examples to learn the conventions from.
-- The LLM is asked to output a reasoning field and final answer sequence. If the final answer sequence is right the LLM passes the task.
 - A reference scale is shown in the X and Y direction for the LLM to see that the stickman has moved from this position to that.
+- The LLM is asked to output a reasoning field and final answer sequence. If the final answer sequence is right the LLM passes the task.
+
 
 #### [Dataset 2](https://www.kaggle.com/datasets/anandjoshuajacob/stickfigures-without-explicit-scale) and Task 2
 - Consists of 5 sub tasks named task2_1, task2_2, task2_3, task2_4 and task2_5
