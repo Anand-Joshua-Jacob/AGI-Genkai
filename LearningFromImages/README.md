@@ -119,18 +119,17 @@ Each image in the Datasets were drawn by me, so they should not appear in any mo
   ### Dataset 3 – Relabelled Directions
   **Link:** [Dataset 3 on Kaggle](https://www.kaggle.com/datasets/anandjoshuajacob/visual-learning-3)
   - Contains **5 subtasks**: `task3_1` to `task3_5`.
-  - Same overall logic as Dataset 1, but **option meanings are permuted**.
+  - Structurally the **same as Dataset 1**, but **option meanings are permuted**.
   #### Changed Option Mapping
-  - **Option A** → movement **up**
-  - **Option B** → movement **left**
-  - **Option C** → movement **right**
+  - **Option A** → movement up
+  - **Option B** → movement left
+  - **Option C** → movement right
  #### Motivation
   - Left and right are opposites, so it is relatively easy for an LLM to relate labels and arrows between left/right images.
   - This dataset tests whether the LLM can:
     - Transfer what it learns from an **“up”** image (jump) to **lateral** movement images and to the target image.
-    - Correctly reinterpret the new labeling of options.
   - The **correct sequence** is:
-    - Jump, then move right → `"AC"` in this case.
+    - Jump, then move right → `"AC"`.
 
 
 ### Benchmark Construction and Scoring
