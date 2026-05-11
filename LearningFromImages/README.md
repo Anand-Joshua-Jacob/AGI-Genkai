@@ -64,10 +64,10 @@ Each image in the Datasets were drawn by me, so they should not appear in any mo
   - Contains **5 subtasks**: `task1_1` to `task1_5`. Each subtask has 4 images.
   #### Progressive removal of cues
   - **`task1_1`**:
-    - Each image shows **two stickmen**:
+    - Each of the 4 images shows **two stickmen**:
       - **Gray stickman**: initial position
       - **Black stickman**: final position
-    - images indicating movement have:
+    - The 3 images indicating movement have:
       - **Labels** for initial and final positions.
       - **Arrows** indicating direction of motion.
     - Target image:
@@ -76,21 +76,22 @@ Each image in the Datasets were drawn by me, so they should not appear in any mo
   - **`task1_2` to `task1_4`**:
     - The first image still has labels and arrows.
     - Labels/arrows are **gradually removed** in images 2 and 3.
-    - The LLM has fewer explicit cues to interpret the motions.
+    - Target image is same as earlier.
+    - The LLM has fewer explicit cues to interpret the motions and target image.
   - **`task1_5`**:
     - Only the **first** image includes labels and arrows.
     - The remaining two images and the target image:
       - Show only gray and black stickmen.
       - No labels or arrows.
-    - This tests how quickly and reliably the LLM can internalize the visual conventions.
+    - The LLM has only one image with cues and has to interpret the other images from that one shot example.
   #### Additional Visual Cues
   - A **scale** is shown in both the **X and Y directions**.
-  - This allows the LLM to see that the stickman moves specific distances from one position to another and to compare these movements.
+  - This allows the LLM to see that the stickman moves specific distances from one position to another and to compare these movements to the target image.
   
   #### Challenge for the LLM
     - **Learn** what the Gray and Black stick man represent.
-    - **Infer** what each option (A, B, C) does from the images.
-    - **Infer** what the target image represents.
+    - **Infer** what each option (A, B, C) does in the images.
+    - **Infer** what kind of motion the target image represents.
     - **Reason** and come up with a minimal action sequence that matches the target.
 
   #### Correct reasoning:  
