@@ -1,8 +1,9 @@
 # AGI-Genkai
-- Experiments to test the limits of state-of-the-art AI systems and map out their capabilities.
-- I think current AI systems can be trained to learn something, to know what area is knows and what it does not but to do them in-context is where they fail.
-- So how does this affect us? We can always train a model to be good at a certain task and use it for that particular task.
-- Where does this AI's lack of understanding affect us. Can all problems be solved by just big data analysis? 
+> The term AGI is often used as a shorthand to describe various kinds of highly capable AI systems. [(1)](#references)
+shorthand to describe various kinds of highly capable AI systems.
+- Experiments to test the current limits of state-of-the-art AI systems and map out their cognitive profiles.
+
+
 
 
 ## Learning
@@ -18,3 +19,6 @@ I was wondering whether SOTA AI systems could also learn from exploring mazes. T
 Confidence calibration done during testing itseems - [Reasoning models get higher scores.](https://arxiv.org/abs/2505.14489)
 1. So how about putting the bullshit benchmark questions and testing whether the AI agrees, if it does, how much is it's confidence score.
 2. How about adding the prompt like - "Answer only if you are 100 percent sure" or "Make sure what you are saying makes sense" and then evaluating the system.
+
+## References
+1) [Measuring Progress Toward AGI: A Cognitive Framework](https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/measuring-progress-toward-agi/measuring-progress-toward-agi-a-cognitive-framework.pdf) (Google DeepMind, 2026)

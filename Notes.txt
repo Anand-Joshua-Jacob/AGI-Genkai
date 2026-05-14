@@ -1,0 +1,3 @@
+- I think current AI systems can be trained to learn any particular thing or to understand it's strengths and weaknesses but to do them in-context is where they fail.
+- How does this affect us? We can always train a model to be good at a certain task and use it for that particular task only right?
+- Where does this AI's lack of understanding or a world model affect us. Can all problems be solved by just "big data analysis"? 
