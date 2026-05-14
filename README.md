@@ -10,15 +10,14 @@
 ## Learning
 
 > The ability to acquire new knowledge, skills, or behaviors through experience, study, or instruction. [1]
+1. **Learning from images** evaluates how well LLMs can learn conventions from images and apply them to reason about a target image. See the detailed tasks and report in the [Learning from Images directory](https://github.com/Anand-Joshua-Jacob/AGI-Genkai/tree/main/LearningFromImages).
 
-1. **Cognitive Maps in Rats and Men** [3], published in Psychological Review 1948, discusses how rats form cognitive maps of mazes after exploring them a few times. It shows that among other things rats can learn the layout of a map by exploring it. 
-SOTA AI systems were also tested on their ability to learn maze structures in the paper titled **MazeEval: A Benchmark for Testing Sequential Decision-Making in Language Models (2025)** [4]. This paper shows that LLMs fail for large mazes and that performance significantly degrades when the language used is changed to Icelandic. It suggests that spatial reasoning in LLMs emerges from linguistic patterns rather than language-agnostic mechanisms.
+2. **Learned Helplessness** refers to a phenomenon in which humans and animals stop trying when they believe their efforts have no effect. Do LLMs exhibit similar behavior? See the additional details in [Learned Helplessness directory](https://github.com/Anand-Joshua-Jacob/AGI-Genkai/tree/main/LearnedHelplessness)
 
-2. **ARC-AGI-3** [5] challenges AI systems with navigating simulated environments to reach specified goals when provided with a discrete set of actions at each step—shifting from static benchmarks to interactive reasoning environments. It introduces a suite of tasks that are designed to be highly challenging for current AI systems while remaining solvable by humans.
+3. **Cognitive Maps in Rats and Men** [3], published in Psychological Review 1948, discusses how rats form cognitive maps of mazes after exploring them a few times. It shows that among other things rats can learn the layout of a map by exploring it. SOTA AI systems were also tested on their ability to learn maze structures in the paper titled **MazeEval: A Benchmark for Testing Sequential Decision-Making in Language Models (2025)** [4]. This paper shows that LLMs fail for large mazes and that performance significantly degrades when the language used is changed to Icelandic. It suggests that spatial reasoning in LLMs emerges from linguistic patterns rather than language-agnostic mechanisms.
 
-3. **Learning from images** evaluates how well LLMs can learn conventions from images and apply them to reason about a target image. See the detailed tasks and report in the [Learning from Images directory](https://github.com/Anand-Joshua-Jacob/AGI-Genkai/tree/main/LearningFromImages).
+4. **ARC-AGI-3** [5] challenges AI systems with navigating simulated environments to reach specified goals when provided with a discrete set of actions at each step—shifting from static benchmarks to interactive reasoning environments. It introduces a suite of tasks that are designed to be highly challenging for current AI systems while remaining solvable by humans.
 
-4. Learned Helplessness
 
 
 ## Metacognition - thinking about thinking
