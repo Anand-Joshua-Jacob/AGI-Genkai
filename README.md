@@ -9,12 +9,17 @@
 
 ## Learning
 
-> Can LLMs learn from experience. Can they have a working memory or understand that their actions have consequences. I wanted to find out!
+> The ability to acquire new knowledge, skills, or behaviors through experience, study, or instruction. [1]
 
-1. [Cognitive Maps in Rats and Men (1948)](https://personal.utdallas.edu/~tres/spatial/tolman.pdf), published in Psychological Review, discusses how rats form cognitive maps of mazes after exploring them a few times. It shows that among other things rats can learn the layout of a map by exploring it. 
-I was wondering whether SOTA AI systems could also learn from exploring mazes. Turns out, this was already researched in a paper titled [MazeEval: A Benchmark for Testing Sequential Decision-Making in Language Models (2025)](https://arxiv.org/abs/2507.20395). This paper shows that LLMs fail for large mazes and that performance significantly degrades when the language used is changed to Icelandic. It suggests that spatial reasoning in LLMs emerges from linguistic patterns rather than language-agnostic mechanisms.
+1. Cognitive Maps in Rats and Men [3], published in Psychological Review 1948, discusses how rats form cognitive maps of mazes after exploring them a few times. It shows that among other things rats can learn the layout of a map by exploring it. 
+SOTA AI systems were also tested on their ability to learn maze structures in the paper titled "MazeEval: A Benchmark for Testing Sequential Decision-Making in Language Models" (2025) [4]. This paper shows that LLMs fail for large mazes and that performance significantly degrades when the language used is changed to Icelandic. It suggests that spatial reasoning in LLMs emerges from linguistic patterns rather than language-agnostic mechanisms.
 
-1. My next thought was to explore whether AI systems could go through a simulated environment and reach a particular goal when they have a set of moves to choose from at each stage. A shift from static benchmarks to interactive reasoning environments. This has already been done by [ARC-AGI-3](https://arcprize.org/arc-agi/3), they have given a benchmark (a set of tasks) that almost impossible for AI systems but feasible for humans.
+2. ARC-AGI-3 [5] challenges AI systems with navigating simulated environments to reach specified goals when provided with a discrete set of actions at each step—shifting from static benchmarks to interactive reasoning environments. It introduces a suite of tasks that are designed to be highly challenging for current AI systems while remaining solvable by humans.
+
+3. Learning from images
+
+4. Learned Helplessness
+
 
 ## Metacognition - thinking about thinking
 
@@ -28,3 +33,9 @@ Confidence calibration done during testing itseems - [Reasoning models get highe
 1. [Measuring Progress Toward AGI: A Cognitive Framework](https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/measuring-progress-toward-agi/measuring-progress-toward-agi-a-cognitive-framework.pdf) (Google DeepMind, 2026)
 
 2. [Kaggle Hackathon conducted by Google Deepmind](https://www.kaggle.com/competitions/kaggle-measuring-agi)
+
+3. [Cognitive Maps in Rats and Men (1948)](https://psychclassics.yorku.ca/Tolman/Maps/maps.htm)
+
+4. [MazeEval: A Benchmark for Testing Sequential Decision-Making in Language Models (2025)](https://arxiv.org/abs/2507.20395)
+
+5. [ARC-AGI-3](https://arcprize.org/arc-agi/3)
